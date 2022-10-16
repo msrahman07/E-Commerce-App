@@ -1,0 +1,15 @@
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/bin/Debug/net6.0/Infrastructure.deps.json
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/bin/Debug/net6.0/Infrastructure.dll
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/bin/Debug/net6.0/Infrastructure.pdb
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/bin/Debug/net6.0/Core.dll
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/bin/Debug/net6.0/Core.pdb
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/obj/Debug/net6.0/Infrastructure.csproj.AssemblyReference.cache
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/obj/Debug/net6.0/Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/obj/Debug/net6.0/Infrastructure.AssemblyInfoInputs.cache
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/obj/Debug/net6.0/Infrastructure.AssemblyInfo.cs
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/obj/Debug/net6.0/Infrastructure.csproj.CoreCompileInputs.cache
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/obj/Debug/net6.0/Infrastructure.csproj.CopyComplete
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/obj/Debug/net6.0/Infrastructure.dll
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/obj/Debug/net6.0/refint/Infrastructure.dll
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/obj/Debug/net6.0/Infrastructure.pdb
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/obj/Debug/net6.0/ref/Infrastructure.dll
