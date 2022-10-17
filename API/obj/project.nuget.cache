@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "9qGCq3qSZ4r1prN7Im/i19N2p6PCqM84hs5NMDHrmGbKIYmT7snv2e48y8fsMBX7Mf1WBKZ4744OCNLjXi7WZw==",
+  "dgSpecHash": "E1qsO3L2DyJ8+j36hO9QKh8XL6Z3t7Dk5U4Xp4XHWFkjoWSqW1vrmiFjWjimgBGWd0yDq17Druuzr1Mxhep9Wg==",
   "success": true,
   "projectFilePath": "/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/API/API.csproj",
   "expectedPackageFiles": [
+    "/home/shahriar/.nuget/packages/automapper/12.0.0/automapper.12.0.0.nupkg.sha512",
+    "/home/shahriar/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.0/automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "/home/shahriar/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
+    "/home/shahriar/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/home/shahriar/.nuget/packages/microsoft.data.sqlite.core/6.0.10/microsoft.data.sqlite.core.6.0.10.nupkg.sha512",
     "/home/shahriar/.nuget/packages/microsoft.entityframeworkcore/6.0.10/microsoft.entityframeworkcore.6.0.10.nupkg.sha512",
     "/home/shahriar/.nuget/packages/microsoft.entityframeworkcore.abstractions/6.0.10/microsoft.entityframeworkcore.abstractions.6.0.10.nupkg.sha512",

@@ -57,3 +57,6 @@
 /home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/API/bin/Debug/net6.0/Infrastructure.dll
 /home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/API/bin/Debug/net6.0/Infrastructure.pdb
 /home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/API/bin/Debug/net6.0/Core.pdb
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/API/bin/Debug/net6.0/AutoMapper.dll
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/API/bin/Debug/net6.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/API/bin/Debug/net6.0/API.staticwebassets.runtime.json
