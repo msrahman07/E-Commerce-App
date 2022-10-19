@@ -1,26 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 using Core.Entities;
 
 namespace Core.Specifications
 {
     public class ProductsWithBrandsAndTypesSpecification : BaseSpecification<Product>
     {
-        public ProductsWithBrandsAndTypesSpecification(string sort, int? brandId, int? typeId )
+        public ProductsWithBrandsAndTypesSpecification(ProductSpecParams productParams)
             : base( x =>
-                (!brandId.HasValue || x.ProductBrandId == brandId) &&
-                (!typeId.HasValue || x.ProductTypeId == typeId)
+                (string.IsNullOrEmpty(productParams.Search) || x.Name.ToLower().Contains(productParams.Search)) &&
+                (!productParams.BrandId.HasValue || x.ProductBrandId == productParams.BrandId) &&
+                (!productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId)
             )
         {
             AddInclude(p => p.ProductBrand);
             AddInclude(p => p.ProductType);
             AddOrderBy(p => p.Name);
+            ApplyPaging(productParams.PageSize * (productParams.PageIndex - 1), productParams.PageSize);
 
-            if(!string.IsNullOrEmpty(sort)){
-                switch(sort)
+            if(!string.IsNullOrEmpty(productParams.Sort)){
+                switch(productParams.Sort)
                 {
                     case "priceAsc":
                         AddOrderBy(p => p.Price);
