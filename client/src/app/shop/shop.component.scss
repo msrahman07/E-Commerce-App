@@ -13,15 +13,21 @@
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
+    margin-right: 20px;
+    display: block;
+
 }
 #sidebar.active {
-    margin-left: -250px;
+    display: none;
 }
 @media (max-width: 768px) {
     #sidebar {
-        margin-left: -250px;
+        display: none;
     }
     #sidebar.active {
-        margin-left: 0;
+        max-width: 150px;
+        min-height: 100vh;
+        margin-right: 20px;
+        display: block;
     }
 }
