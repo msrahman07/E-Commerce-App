@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { IPagination } from '../shared/models/pagination';
+import { IProduct } from '../shared/models/product';
 import { IBrand } from '../shared/models/productBrand';
 import { IType } from '../shared/models/productType';
 import { ShopParams } from '../shared/models/shopParams';
@@ -14,7 +15,7 @@ export class ShopService {
 
   constructor(private http: HttpClient) { }
 
-  getProducts({brandId, typeId, sort, pageNumber, pageSize } : ShopParams) {
+  getProducts({brandId, typeId, sort, pageNumber, pageSize, search } : ShopParams) {
     var params = new HttpParams();
 
     if(brandId !== 0){
@@ -28,6 +29,10 @@ export class ShopService {
       params = params.append('typeId', typeId);
     }
 
+    if(search !== undefined) {
+      params = params.append('search', search);
+    }
+
     params = params.append('sort', sort);
     params = params.append('pageIndex', pageNumber);
     params = params.append('pageSize', pageSize);
@@ -39,6 +44,10 @@ export class ShopService {
     //       return response.body!;
     //     })
     //   );
+  }
+
+  getProduct(id: number) {
+    return this.http.get<IProduct>(this.baseUrl + 'products/'+ id);
   }
 
   getBrands() {
