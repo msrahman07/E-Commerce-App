@@ -1,0 +1,16 @@
+.btn {
+    width: 40%;
+    height: 40%
+}
+
+.image :hover {
+    opacity: 1;
+    transform: 0.5s;
+    
+}
+
+.hover-overlay {
+    background: rgba($color: white, $alpha: 0.5);
+    opacity: 0.6;
+    transform: all 0.5s;
+}
