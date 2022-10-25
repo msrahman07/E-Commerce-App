@@ -83,7 +83,14 @@ export class BasketService {
     this.basketTotalSource.next({shipping, subtotal, total});
   }
 
-  onQuantityChange() {
-    
+  deleteBasket(basket : IBasket) {
+    return this.http.delete(this.baseUrl + 'basket?id='+basket.id).subscribe({
+      next: () => {
+        this.basketSource.next(null);
+        this.basketTotalSource.next(null);
+        localStorage.removeItem('basket_id');
+      },
+      error: (error) => {console.log(error);}
+    })
   }
 }

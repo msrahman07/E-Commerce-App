@@ -10,29 +10,29 @@
                     <div class="col-sm-12 py-5 mb-1">
                         <div class="table-responsive">
                             <table class="table">
-                                <thead>
+                                <thead style="background-color: #e9ecef; border-radius: 5px;">
                                     <tr>
-                                        <th class="border-0 bg-light" scope="col">
+                                        <th class="border-0" scope="col">
                                             <div class="p-2 px-3 text-uppercase">
                                                 Product
                                             </div>
                                         </th>
-                                        <th class="border-0 bg-light" scope="col">
+                                        <th class="border-0" scope="col">
                                             <div class="p-2 px-2 text-uppercase">
                                                 Price
                                             </div>
                                         </th>
-                                        <th class="border-0 bg-light" scope="col">
+                                        <th class="border-0" scope="col">
                                             <div class="p-2 px-2 text-uppercase">
                                                 Quantity
                                             </div>
                                         </th>
-                                        <th class="border-0 bg-light" scope="col">
+                                        <th class="border-0" scope="col">
                                             <div class="p-2 px-2 text-uppercase">
                                                 Total
                                             </div>
                                         </th>
-                                        <th class="border-0 bg-light" scope="col">
+                                        <th class="border-0" scope="col">
                                             <div class="p-2 px-2 text-uppercase text-center">
                                                 Remove
                                             </div>
@@ -61,12 +61,12 @@
                                         <td class="align-middle"><strong>{{item.price | currency}}</strong></td>
                                         <td class="align-middle">
                                             <div class="d-flex align-items-center">
-                                                <input type="number" [value]="item.quantity" (change)="onQuantityChange()" style="max-width: 100px; border:none;"/>
+                                                <input type="number" [value]="item.quantity" min="1" (change)="onQuantityChange(item, $event)" style="max-width: 100px; border:none;"/>
                                             </div>   
                                         </td>
-                                        <td class="align-middle"><strong style="margin-left: 10px;">{{item.price * item.quantity}}</strong></td>
+                                        <td class="align-middle"><strong style="margin-left: 10px;">{{(item.price * item.quantity) | currency}}</strong></td>
                                         <td class="align-middle text-center">
-                                            <a class="text-danger align-middle">
+                                            <a (click)="onRemoveItem(item)" class="text-danger align-middle" style="cursor: pointer;">
                                                 <i class="fa fa-trash" style="font-size: 1em;"></i>
                                             </a>
                                         </td>
