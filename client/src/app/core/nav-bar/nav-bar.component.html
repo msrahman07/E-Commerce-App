@@ -18,7 +18,9 @@
 
         <a routerLink="/basket" class="position-relative">
             <i class="fa fa-shopping-cart fa-2x mr-5 text-dark"></i>
-            <div class="cart-no" style="margin-left: 0.5em;">5</div>
+            <div *ngIf="(basket$ | async) as basket" class="cart-no" style="margin-left: 0.5em;">
+                {{basket.items.length}}
+            </div>
         </a>
 
         <a class="btn btn-outline-secondary mr-2" style="margin-left: 2em;">Login</a>
