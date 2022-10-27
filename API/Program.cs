@@ -1,9 +1,14 @@
 using API.Errors;
+using API.Extensions;
 using API.Helpers;
 using API.Middleware;
+using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Data.SeedData;
+using Infrastructure.Identity;
+using Infrastructure.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
@@ -13,23 +18,28 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
-
+builder.Services.AddIdentityServices(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<StoreContext>(options => options.UseSqlite(connectionString));
-builder.Services.AddSingleton<IConnectionMultiplexer>(c => {
+builder.Services.AddDbContext<AppIdentityDbContext>(
+    options => options.UseSqlite(builder.Configuration.GetConnectionString("IdentityConnection"))
+);
+builder.Services.AddSingleton<IConnectionMultiplexer>(c =>
+{
     var configuration = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"), true);
     return ConnectionMultiplexer.Connect(configuration);
 });
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
-builder.Services.Configure<ApiBehaviorOptions>(options => 
+builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.InvalidModelStateResponseFactory = actionContext =>
     {
@@ -37,7 +47,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
             .Where(e => e.Value!.Errors.Count > 0)
             .SelectMany(x => x.Value!.Errors)
             .Select(x => x.ErrorMessage).ToArray();
-        var errorResponse = new ApiValidationErrorResponse 
+        var errorResponse = new ApiValidationErrorResponse
         {
             Errors = errors
         };
@@ -46,7 +56,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     };
 });
 
-builder.Services.AddCors(opt => 
+builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy", policy =>
     {
@@ -68,25 +78,36 @@ app.UseStatusCodePagesWithReExecute("/errors/{0}");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCors("CorsPolicy");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
 // Creating Scope for automated DB creation ======================
-using var scope = app.Services.CreateScope();
-var services = scope.ServiceProvider;
-var logger = services.GetRequiredService<ILogger<Program>>();
+using (var scope = app.Services.CreateScope())
+{
 
-try
-{
-    var context = services.GetRequiredService<StoreContext>();
-    await context.Database.MigrateAsync();
-    await StoreContextSeed.SeedAsync(context, logger);
+    var services = scope.ServiceProvider;
+    var logger = services.GetRequiredService<ILogger<Program>>();
+
+    try
+    {
+        var context = services.GetRequiredService<StoreContext>();
+        await context.Database.MigrateAsync();
+        await StoreContextSeed.SeedAsync(context, logger);
+
+        var userManager = services.GetRequiredService<UserManager<AppUser>>();
+        var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+        await identityContext.Database.MigrateAsync();
+        await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "An error occured during migration");
+        // throw;
+    }
 }
-catch (Exception ex)
-{
-    logger.LogError(ex, "An error occured during migration");
-    // throw;
-}
+
 //================================================================
 await app.RunAsync();
