@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Errors;
+using API.Extensions;
+using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,12 +20,59 @@ namespace API.Controllers
         private readonly UserManager<AppUser> userManager;
         private readonly SignInManager<AppUser> signInManager;
         private readonly ITokenService tokenSerice;
+        private readonly IMapper mapper;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenSerice)
+        public AccountController(UserManager<AppUser> userManager, 
+            SignInManager<AppUser> signInManager, 
+            ITokenService tokenSerice,
+            IMapper mapper)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.tokenSerice = tokenSerice;
+            this.mapper = mapper;
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        {
+            var user = await userManager.FindByEmailFromClaimsPrincipal(User);
+            return new UserDto
+            {
+                Email = user.Email,
+                Token = tokenSerice.CreateToken(user),
+                DisplayName = user.DisplayName,
+            };
+        }
+
+        [HttpGet("emailexists")]
+        public async Task<ActionResult<bool>> CheckEmailExistsAsync([FromQuery] string email)
+        {
+            return await userManager.FindByEmailAsync(email) != null;
+        }
+
+        [Authorize]
+        [HttpGet("address")]
+        public async Task<ActionResult<AddressDto>> GetUserAddress()
+        {
+            var user = await userManager.FindUserByClaimsPrincipleWithAddressAsync(User);
+            var data = mapper.Map<Address, AddressDto>(user.Address);
+            return data;
+        }
+        
+        [Authorize]
+        [HttpPut("address")]
+        public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto address)
+        {
+            var user = await userManager.FindUserByClaimsPrincipleWithAddressAsync(User);
+            
+            user.Address = mapper.Map<AddressDto, Address>(address);
+            
+            var result = await userManager.UpdateAsync(user);
+            if(result.Succeeded) return Ok(mapper.Map<Address, AddressDto>(user.Address));
+            
+            return BadRequest("Problem updating the user");
         }
 
         [HttpPost("login")]
@@ -45,6 +96,10 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
+            if(CheckEmailExistsAsync(registerDto.Email).Result.Value)
+            {
+                return new BadRequestObjectResult(new ApiValidationErrorResponse {Errors = new[] {"Email address is in use"}});
+            }
             var user = new AppUser
             {
                 DisplayName = registerDto.DisplayName,

@@ -85,3 +85,6 @@
 /home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/API/bin/Debug/net6.0/Microsoft.IdentityModel.Logging.dll
 /home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/API/bin/Debug/net6.0/Microsoft.IdentityModel.Tokens.dll
 /home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/API/bin/Debug/net6.0/System.IdentityModel.Tokens.Jwt.dll
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/API/bin/Debug/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/API/bin/Debug/net6.0/Microsoft.IdentityModel.Protocols.dll
+/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/API/bin/Debug/net6.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
