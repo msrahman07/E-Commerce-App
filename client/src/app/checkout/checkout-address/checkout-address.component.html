@@ -1,0 +1,36 @@
+<div class="mt-4" [formGroup]="checkoutForm" style="margin-bottom: 20px;">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h4>Shipping address</h4>
+        <button class="btn btn-outline-success">
+            Sace as default address
+        </button>
+    </div>
+    <div class="row" formGroupName="addressForm">
+        <div class="form-group col-sm-6">
+            <app-text-input [label]="'First Name'" formControlName="firstName"></app-text-input>
+        </div>
+        <div class="form-group col-sm-6">
+            <app-text-input [label]="'Last Name'" formControlName="lastName"></app-text-input>
+        </div>
+        <div class="form-group col-sm-6">
+            <app-text-input [label]="'Street'" formControlName="street"></app-text-input>
+        </div>
+        <div class="form-group col-sm-6">
+            <app-text-input [label]="'City'" formControlName="city"></app-text-input>
+        </div>
+        <div class="form-group col-sm-6">
+            <app-text-input [label]="'State'" formControlName="state"></app-text-input>
+        </div>
+        <div class="form-group col-sm-6">
+            <app-text-input [label]="'Zip Code'" formControlName="zipcode"></app-text-input>
+        </div>
+    </div>
+</div>
+<div class="float-none d-flex justify-content-between flex-lg-row mb-5">
+    <button class="btn btn-outline-primary" routerLink="/basket" style="max-width: 205px;">
+        <i class="fa fa-angle-left"></i> Back to cart
+    </button>
+    <button class="btn btn-primary" cdkStepperNext  style="max-width: 205px;">
+        Go to delivery <i class="fa fa-angle-right"></i>
+    </button>
+</div>

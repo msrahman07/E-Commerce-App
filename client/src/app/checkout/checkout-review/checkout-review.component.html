@@ -1,0 +1,11 @@
+<div style="margin-top: 20px;" *ngIf="(basket$ | async) as basket">
+    <app-basket-summary [items]="basket.items"></app-basket-summary>
+</div>
+<div class="float-none d-flex justify-content-between flex-lg-row mb-5">
+    <button class="btn btn-outline-primary" cdkStepperPrevious style="max-width: 205px;">
+        <i class="fa fa-angle-left"></i> Back to Delivery
+    </button>
+    <button class="btn btn-primary" cdkStepperNext  style="max-width: 205px;">
+        Go to Payment <i class="fa fa-angle-right"></i>
+    </button>
+</div>

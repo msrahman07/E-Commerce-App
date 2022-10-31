@@ -27,7 +27,7 @@ namespace Core.Entities.OrderAggregate
         public IReadOnlyList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
         public decimal Subtotal { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
-        public string PaymentIntentId { get; set; } = null!;
+        // public string? PaymentIntentId { get; set; }
 
         public decimal GetTotal()
         {
