@@ -1,0 +1,23 @@
+<div *ngIf="orders.length > 0" class="container">
+    <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Total</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of orders"
+                style="cursor: pointer;"
+                routerLink="/orders/{{order.id}}"
+            >
+              <th scope="row">{{order.id}}</th>
+              <td>{{order.orderDate | date:'medium'}}</td>
+              <td>{{order.total | currency}}</td>
+              <td>{{order.status}}</td>
+            </tr>
+        </tbody>
+    </table> 
+</div>

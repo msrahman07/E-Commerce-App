@@ -1,0 +1,45 @@
+<div class="container" *ngIf="order" style="max-width: 1200px;">
+    <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr
+                *ngFor="let item of order.orderItems"
+                style="cursor: pointer;"
+            >
+              <th scope="row">
+                <img src="{{item.pictureUrl}}" alt="{{item.productName}}" style="max-height: 50px;">
+                {{item.productName}}
+              </th>
+              <td>{{item.price | currency}}</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.price * item.quantity}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="px-4 py-3 text-uppercase font-weight-bold mt-5" style="background-color: #e9ecef; border-radius: 5px;">
+        Order Summary
+    </div>
+    <div class="p-4" >
+        <ul class="list-unstyled mb-4">
+            <li class="d-flex justify-content-between py-3 border-bottom">
+                <strong class="text-muted">Order subtotal</strong>
+                <strong>{{order.subtotal | currency}}</strong>
+            </li>
+            <li class="d-flex justify-content-between py-3 border-bottom">
+                <strong class="text-muted">Shipping and handling</strong>
+                <strong>{{order.shippingPrice| currency}}</strong>
+            </li>
+            <li class="d-flex justify-content-between py-3 border-bottom">
+                <strong class="text-muted">Total</strong>
+                <strong>{{order.total | currency}}</strong>
+            </li>
+        </ul>
+    </div>
+</div>
