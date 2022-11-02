@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BasketService } from 'src/app/basket/basket.service';
 import { IBasket, IBasketItem } from '../../models/basket';
@@ -15,7 +16,7 @@ export class BasketSummaryComponent implements OnInit {
   // @Output() remove: EventEmitter<IBasketItem | null> = new EventEmitter();  
   @Input() items: IBasketItem[] = [];
 
-  constructor(private basketService: BasketService) { }
+  constructor(private basketService: BasketService, private router: Router) { }
 
   ngOnInit(): void {
     this.basket$ = this.basketService.basket$;
@@ -45,8 +46,9 @@ export class BasketSummaryComponent implements OnInit {
     } else {
       this.basketService.deleteBasket(basket);
     }
-    
+
+    if(basket.items.length === 0) {
+      this.router.navigateByUrl('/shop')
+    } 
   }
-
-
 }

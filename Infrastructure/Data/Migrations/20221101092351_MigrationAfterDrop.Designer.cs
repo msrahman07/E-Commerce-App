@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20221030074227_MigrationAfterDrop")]
+    [Migration("20221101092351_MigrationAfterDrop")]
     partial class MigrationAfterDrop
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,9 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<long>("OrderDate")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Status")
                         .IsRequired()
