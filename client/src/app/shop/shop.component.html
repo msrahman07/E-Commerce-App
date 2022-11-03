@@ -30,7 +30,9 @@
                     <ul class="list-unstyled components">
                         <h5 class="text-warning ml-3">Sort</h5>
                         <select class="form-select mb-3" [(ngModel)]="this.shopParams.sort" (change)="onSortSelected()">
-                            <option *ngFor="let sort of sortOptions" [value]="sort.value">
+                            <option *ngFor="let sort of sortOptions" 
+                                [selected]="shopParams.sort === sort.value"
+                                [value]="sort.value">
                                 {{sort.name}}
                             </option>
 
@@ -65,8 +67,12 @@
         </section>
         <section *ngIf="totalCount && totalCount > 0"
             class="wrapper col-sm-12 d-flex justify-content-center align-items-center" style="margin-top: 10px;">
-            <app-pager [pageSize]="shopParams.pageSize" [totalCount]="totalCount"
-                (pagerChanged)="onPageChanged($event)"></app-pager>
+            <app-pager 
+                [pageSize]="shopParams.pageSize" 
+                [totalCount]="totalCount"
+                [pageNumber]="shopParams.pageNumber"
+                (pagerChanged)="onPageChanged($event)"
+            ></app-pager>
         </section>
     </div>
 </div>

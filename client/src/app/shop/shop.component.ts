@@ -16,7 +16,7 @@ export class ShopComponent implements OnInit {
   products: IProduct[] = [];
   brands: IBrand[] = [];
   types: IType[] = [];
-  shopParams = new ShopParams();
+  shopParams : ShopParams;
   totalCount = 0
   sortOptions = [
     {name: 'Alphabetical', value: 'name'},
@@ -26,20 +26,20 @@ export class ShopComponent implements OnInit {
   sideBarIsActive: boolean = false;
   sideBarIsActiveClass: string = "";
 
-  constructor(private shopService: ShopService) { }
+  constructor(private shopService: ShopService) {
+    this.shopParams = shopService.getShopParams();
+  }
 
   ngOnInit(): void {
-    this.getProducts();
+    this.getProducts(true);
     this.getBrands();
     this.getTypes();
   }
 
-  getProducts () {
-    this.shopService.getProducts(this.shopParams).subscribe({
+  getProducts (useCache = false) {
+    this.shopService.getProducts(useCache).subscribe({
       next: (response) => {
         this.products = response.data;
-        this.shopParams.pageNumber = response.pageIndex;
-        this.shopParams.pageSize = response.pageSize;
         this.totalCount = response.count;
       },
       error: (error) => {console.log(error);}
@@ -64,13 +64,17 @@ export class ShopComponent implements OnInit {
   }
 
   onBrandSelected(brandId: number){
-    this.shopParams.brandId = brandId;
-    this.shopParams.pageNumber = 1;
+    const params = this.shopService.getShopParams();
+    params.brandId = brandId;
+    params.pageNumber = 1;
+    this.shopService.setShopParams(params);
     this.getProducts();
   }
   onTypeSelected(typeId: number){
-    this.shopParams.typeId = typeId;
-    this.shopParams.pageNumber = 1;
+    const params = this.shopService.getShopParams();
+    params.typeId = typeId;
+    params.pageNumber = 1;
+    this.shopService.setShopParams(params);
     this.getProducts();
   }
 
@@ -81,17 +85,22 @@ export class ShopComponent implements OnInit {
 
   onPageChanged(event:PageChangedEvent) {
     // console.log(this.shopParams.pageNumber)
-    if(this.shopParams.pageNumber !== event.page) {
-      this.shopParams.pageNumber = event.page
-      this.getProducts();
+    const params = this.shopService.getShopParams();
+    if(params.pageNumber !== event.page) {
+      params.pageNumber = event.page
+      this.shopService.setShopParams(params);
+      this.getProducts(true);
     }
+
   }
 
   onSearch() {
+    const params = this.shopService.getShopParams();
     (this.searchTerm?.nativeElement.value && this.searchTerm?.nativeElement.value.length !== 0)
-    ? this.shopParams.search = this.searchTerm?.nativeElement.value
-    : this.shopParams.search = undefined;
-    this.shopParams.pageNumber = 1;
+    ? params.search = this.searchTerm?.nativeElement.value
+    : params.search = undefined;
+    params.pageNumber = 1;
+    this.shopService.setShopParams(params);
     this.getProducts();
   }
 
@@ -99,6 +108,7 @@ export class ShopComponent implements OnInit {
     this.searchTerm!.nativeElement.value = "";
     this.searchTerm = undefined;
     this.shopParams = new ShopParams();
+    this.shopService.setShopParams(this.shopParams);
     this.getProducts();
   }
 
