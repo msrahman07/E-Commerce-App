@@ -26,7 +26,13 @@
     <button class="btn btn-outline-primary" cdkStepperPrevious style="max-width: 205px;">
         <i class="fa fa-angle-left"></i> Back to Review
     </button>
-    <button (click)="submitOrder()" class="btn btn-primary" cdkStepperNext style="max-width: 205px;">
+    <button [disabled]="loading 
+        || checkoutForm.get('paymentForm')?.invalid
+        || !cardNumberValid
+        || !cardExpiryValid
+        || !cardCvcValid" 
+        (click)="submitOrder()" class="btn btn-primary" cdkStepperNext style="max-width: 205px;">
         Submit Order <i class="fa fa-angle-right"></i>
+        <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
     </button>
 </div>

@@ -30,7 +30,7 @@ export class OrdersDetailsComponent implements OnInit {
     this.orderService.getSingleOrder(this.id).subscribe({
       next: (order) => {
         this.order = order
-        this.bcService.set('@orderDetails', `Order #${order.id}`);
+        this.bcService.set('@orderDetails', `Order #${order.id} - ${order.status}`);
       },
       error: (error) => console.log(error)
     })

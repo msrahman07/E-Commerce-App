@@ -30,7 +30,7 @@
     <button class="btn btn-outline-primary" routerLink="/basket" style="max-width: 205px;">
         <i class="fa fa-angle-left"></i> Back to cart
     </button>
-    <button [disabled]="!checkoutForm.get('addressForm')?.valid" class="btn btn-primary" cdkStepperNext  style="max-width: 205px;">
+    <button [disabled]="checkoutForm.get('addressForm')?.invalid" class="btn btn-primary" cdkStepperNext  style="max-width: 205px;">
         Go to delivery <i class="fa fa-angle-right"></i>
     </button>
 </div>

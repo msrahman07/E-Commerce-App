@@ -26,6 +26,9 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   cardErrors: any;
   cardHandler: any = this.onChange.bind(this);
   loading = false;
+  cardNumberValid = false;
+  cardExpiryValid = false;
+  cardCvcValid = false;
 
   constructor(
     private basketService: BasketService, 
@@ -56,11 +59,22 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     this.cardCvc.addEventListener('change', this.cardHandler);
     
   }
-  onChange({error}:any) {
-    if(error) {
-      this.cardErrors = error.message;
+  onChange(event:any) {
+    if(event.error) {
+      this.cardErrors = event.error.message;
     } else {
       this.cardErrors = null;
+    }
+    switch(event.elementType) {
+      case 'cardNumber':
+        this.cardNumberValid = event.complete;
+        break;
+      case 'cardExpiry':
+        this.cardExpiryValid = event.complete;
+        break;
+      case 'cardCvc':
+        this.cardCvcValid = event.complete;
+        break;
     }
   }
 
@@ -68,12 +82,21 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     this.loading = true;
     const basket = this.basketService.getCurrentBasketValue();
     try {
-      const createdOrder = await this.createOrder(basket!);
       const paymentResult = await this.confirmPaymentWithStripe(basket!);
       if (paymentResult.paymentIntent) {
-        this.basketService.deleteLocalBasket(basket!.id);
-        const navigationExtras: NavigationExtras = { state: createdOrder };
-        this.router.navigate(['checkout/success'], navigationExtras);
+        const orderToCreate = this.getOrderToCreate(basket!);
+        this.checkoutService.createOrder(orderToCreate).subscribe({
+          next: (createdOrder) =>{
+            this.basketService.deleteBasket(basket!);
+            const navigationExtras: NavigationExtras = { state: createdOrder };
+            this.router.navigate(['checkout/success'], navigationExtras);
+          },
+          error: (error) => {
+            this.toastr.error(error.message);
+            console.log(error)
+          }
+        })
+        
       } else {
         this.toastr.error(paymentResult.error.message);
       }
@@ -95,17 +118,16 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  private async createOrder(basket: IBasket) {
-    const orderToCreate = this.getOrderToCreate(basket);
-    return this.checkoutService.createOrder(orderToCreate).toPromise();
-  }
+  // private async createOrder(basket: IBasket) {
+  //   const orderToCreate = this.getOrderToCreate(basket);
+  //   return this.checkoutService.createOrder(orderToCreate);
+  // }
 
   private getOrderToCreate(basket: IBasket) : IOrderToCreate {
     return{
       basketId: basket.id,
       deliveryMethodId: +this.checkoutForm.get('deliveryForm')?.get('deliveryMethod')?.value,
       shipToAddress: this.checkoutForm.get('addressForm')?.value
-
     }
 
   }

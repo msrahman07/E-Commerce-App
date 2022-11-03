@@ -20,8 +20,9 @@ export class CheckoutAddressComponent implements OnInit {
     let address:IAddress = this.checkoutForm.get('addressForm')?.value
     if(address){
       this.accountService.updateUserAddress(address).subscribe({
-        next: () => {
+        next: (address) => {
           this.toastr.success('Address saved');
+          this.checkoutForm.get('addressForm')?.reset(address);
           // this.checkoutForm.get('addressForm')?.patchValue(add)
         },
         error: (error) => {
