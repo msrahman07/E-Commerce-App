@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "VWyMEOUtjdfESlcbWzKYPFJBqw9B1YkHMJIgp7Gt4DcUcdzDnmG0TNIlj6bdQpvQPRj7Cg3TcLZ87hb4+u9HQw==",
+  "dgSpecHash": "NFh37wngZ3Az3ccWu7eq6k2fuUh5ganeRQUeInkbDhLHnqi6pnlxuJkl0LtIMivgUq/H1GpKxMbGAsHILN9asw==",
   "success": true,
   "projectFilePath": "/home/shahriar/Desktop/Codes/Tutorials/ASP/Second/E-Commerce-App/Infrastructure/Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -55,6 +55,8 @@
     "/home/shahriar/.nuget/packages/microsoft.win32.registry/5.0.0/microsoft.win32.registry.5.0.0.nupkg.sha512",
     "/home/shahriar/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "/home/shahriar/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512",
+    "/home/shahriar/.nuget/packages/npgsql/6.0.7/npgsql.6.0.7.nupkg.sha512",
+    "/home/shahriar/.nuget/packages/npgsql.entityframeworkcore.postgresql/6.0.7/npgsql.entityframeworkcore.postgresql.6.0.7.nupkg.sha512",
     "/home/shahriar/.nuget/packages/pipelines.sockets.unofficial/2.2.2/pipelines.sockets.unofficial.2.2.2.nupkg.sha512",
     "/home/shahriar/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.0.6/sqlitepclraw.bundle_e_sqlite3.2.0.6.nupkg.sha512",
     "/home/shahriar/.nuget/packages/sqlitepclraw.core/2.0.6/sqlitepclraw.core.2.0.6.nupkg.sha512",

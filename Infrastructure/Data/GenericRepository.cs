@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
@@ -19,7 +15,8 @@ namespace Infrastructure.Data
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await context.Set<T>().FindAsync(id);
+            var result = await context.Set<T>().FindAsync(id);
+            return (result == null) ? null! : result;
         }
 
         public async Task<IReadOnlyList<T>> ListAllAsync()
@@ -28,7 +25,8 @@ namespace Infrastructure.Data
         }
         public async Task<T> GetEntityWithSpec(ISpecification<T> spec)
         {
-            return await ApplySpecification(spec).FirstOrDefaultAsync();
+            var result = await ApplySpecification(spec).FirstOrDefaultAsync();
+            return (result == null) ? null! : result;
         }
         public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
         {

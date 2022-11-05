@@ -52,9 +52,9 @@ namespace API.Extensions
                 c.AddSecurityRequirement(securityRequirement);
             });
             var connectionString = config.GetConnectionString("DefaultConnection");
-            services.AddDbContext<StoreContext>(options => options.UseSqlite(connectionString));
+            services.AddDbContext<StoreContext>(options => options.UseNpgsql(connectionString));
             services.AddDbContext<AppIdentityDbContext>(
-                options => options.UseSqlite(config.GetConnectionString("IdentityConnection"))
+                options => options.UseNpgsql(config.GetConnectionString("IdentityConnection"))
             );
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {
